@@ -48,7 +48,7 @@ Configurations with a single API server will experience unavailability while the
    If any pods are started before new CA is used by API servers, they will get this update and trust both old and new CAs.
 
    ```shell
-   base64_encoded_ca="$(base64 <path to file containing both old and new CAs>)"
+   base64_encoded_ca="$(base64 -w 0 <path to file containing both old and new CAs>)"
 
    for namespace in $(kubectl get ns --no-headers | awk '{print $1}'); do
        for token in $(kubectl get secrets --namespace "$namespace" --field-selector type=kubernetes.io/service-account-token -o name); do
